@@ -34,37 +34,47 @@ createApp({
                 }
             ],
 
-        }
-    },
+    autoplayTimer: null,
 
-    methods: {
+}
+},
 
-        nextSlide() {
-            this.currentSlideIndex++;
+methods: {
 
-            if(this.currentSlideIndex >= this.slides.length) {
-                this.currentSlideIndex = 0;
-            }
-        },
+nextSlide() {
+    this.currentSlideIndex++;
 
-        prevSlide() {
-            this.currentSlideIndex--;
+    if(this.currentSlideIndex >= this.slides.length) {
+        this.currentSlideIndex = 0;
+    }
+},
 
-            if(this.currentSlideIndex < 0) {
-                this.currentSlideIndex = this.slides.length - 1;
-            }
-        },
+prevSlide() {
+    this.currentSlideIndex--;
 
-        changeSlide(newIndex) {
-            this.currentSlideIndex = newIndex;
-        },
+    if(this.currentSlideIndex < 0) {
+        this.currentSlideIndex = this.slides.length - 1;
+    }
+},
 
-    },
+changeSlide(newIndex) {
+    this.currentSlideIndex = newIndex;
+},
 
-    mounted() {
-        
-        // Autoplay  slideshow
-        const autoplayTimer = setInterval(this.nextSlide, 3000);
+stopAutoplay() {
+    // blocco l'autoplay
+    clearInterval(this.autoplayTimer);
+},
 
-    },
+startAutoplay() {
+    this.autoplayTimer = setInterval(this.nextSlide, 3000);
+},
+
+},
+
+mounted() {
+// avvio l'autoplay dello slideshow
+this.startAutoplay();
+
+},
 }).mount("#app");
